@@ -3,37 +3,60 @@
 {% block content %}
 <div class="soft-panel p-4 p-lg-5">
   {% if user.is_authenticated %}
-    <div class="row align-items-center g-4">
-      <div class="col-lg-7">
-        <p class="text-success fw-bold mb-2">Bootstrap 5 + DRF + MySQL</p>
-        <h1 class="display-6 fw-bold mb-3">歡迎回來，{{ user.username }}</h1>
-        <p class="lead mb-4">記錄每日飲食、查詢歷史紀錄，也能直接用 REST API 新增、讀取與刪除資料。</p>
-        <a href="{% url 'food_tracker:add' %}" class="btn btn-success btn-lg me-2">新增飲食</a>
-        <a href="{% url 'food_tracker:api_tools' %}" class="btn btn-outline-success btn-lg">操作 API</a>
-      </div>
+    <div class="row g-4">
       <div class="col-lg-5">
-        <div class="metric p-4 mb-3">
-          <div class="fw-bold">REST API</div>
-          <div class="text-muted">/api/records/、/api/summary/</div>
+        <div class="action-panel">
+          <p class="text-success fw-bold mb-2">Hi, {{ user.username }}</p>
+          <h1 class="display-6 page-title mb-3">今天吃了什麼？</h1>
+          <a href="{% url 'food_tracker:add' %}" class="btn btn-success btn-lg">記一餐</a>
         </div>
-        <div class="metric p-4">
-          <div class="fw-bold">容器化部署</div>
-          <div class="text-muted">Django app + MySQL + Nginx</div>
+      </div>
+      <div class="col-lg-7">
+        <div class="row g-3 h-100 align-content-center">
+          <div class="col-sm-6">
+            <a class="quick-action h-100" href="{% url 'food_tracker:add' %}">
+              <strong>新增紀錄</strong>
+              <span class="quiet-text">日期、食物、份量、卡路里</span>
+            </a>
+          </div>
+          <div class="col-sm-6">
+            <a class="quick-action h-100" href="{% url 'food_tracker:history' %}">
+              <strong>查看紀錄</strong>
+              <span class="quiet-text">列表、總熱量、刪除</span>
+            </a>
+          </div>
+          <div class="col-sm-6">
+            <a class="quick-action h-100" href="{% url 'food_tracker:api_tools' %}">
+              <strong>API 測試</strong>
+              <span class="quiet-text">新增、查詢、刪除</span>
+            </a>
+          </div>
+          <div class="col-sm-6">
+            <a class="quick-action h-100" href="{% url 'food_tracker:history' %}">
+              <strong>總覽</strong>
+              <span class="quiet-text">快速看攝取量</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   {% else %}
-    <p class="text-success fw-bold mb-2">生活小幫手 Django App V3</p>
-    <h1 class="display-6 fw-bold mb-3">飲食紀錄、卡路里統計與 REST API 操作整合在一起</h1>
-    <p class="lead mb-4">註冊後即可建立個人飲食資料，並透過 Bootstrap 頁面或 JSON API 管理紀錄。</p>
-    <a href="{% url 'food_tracker:register' %}" class="btn btn-success btn-lg me-2">立即註冊</a>
-    <a href="{% url 'food_tracker:login' %}" class="btn btn-outline-success btn-lg">使用者登入</a>
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <p class="text-success fw-bold mb-2">飲食小幫手</p>
+        <h1 class="display-6 page-title mb-3">記錄飲食，簡單一點。</h1>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{% url 'food_tracker:register' %}" class="btn btn-success btn-lg">開始使用</a>
+          <a href="{% url 'food_tracker:login' %}" class="btn btn-outline-success btn-lg">登入</a>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="metric p-4">
+          <div class="fs-5 fw-bold mb-2">三步完成</div>
+          <div class="quiet-text">新增一餐 → 查看紀錄 → 管理熱量</div>
+        </div>
+      </div>
+    </div>
   {% endif %}
-</div>
-
-<div class="row g-3 mt-3">
-  <div class="col-md-4"><div class="soft-panel p-3 h-100"><strong>Bootstrap 5</strong><p class="mb-0 text-muted mt-2">導覽列、卡片、表格、表單與提示訊息統一美化。</p></div></div>
-  <div class="col-md-4"><div class="soft-panel p-3 h-100"><strong>RESTful API</strong><p class="mb-0 text-muted mt-2">提供紀錄 CRUD 與統計摘要 JSON，可用網頁或 Postman 測試。</p></div></div>
-  <div class="col-md-4"><div class="soft-panel p-3 h-100"><strong>Docker Compose</strong><p class="mb-0 text-muted mt-2">使用 MySQL 官方映像，並以 Nginx 對外服務。</p></div></div>
 </div>
 {% endblock %}

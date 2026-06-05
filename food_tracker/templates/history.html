@@ -2,16 +2,14 @@
 {% block title %}飲食記錄查詢 - 飲食記錄應用{% endblock %}
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <h2 class="h4 fw-bold mb-0">飲食紀錄查詢</h2>
-  <a class="btn btn-success" href="{% url 'food_tracker:add' %}">新增一筆</a>
+  <h2 class="h4 page-title mb-0">飲食紀錄</h2>
+  <a class="btn btn-success" href="{% url 'food_tracker:add' %}">新增</a>
 </div>
 <div class="row mb-3">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="metric p-3">
-      <div class="card-body">
-        <h5 class="card-title fw-bold">卡路里統計</h5>
-        <p class="card-text"><strong>您的總卡路里：</strong> <span class="badge bg-success">{{ total_calories }} kcal</span></p>
-      </div>
+      <div class="text-muted small">總卡路里</div>
+      <div class="fs-3 fw-bold">{{ total_calories }} <span class="fs-6 text-muted">kcal</span></div>
     </div>
   </div>
 </div>
@@ -20,10 +18,10 @@
     <table class="table table-hover align-middle mb-0">
       <thead class="table-light">
         <tr>
-          <th>建立紀錄時間</th>
+          <th>時間</th>
           <th>食物名稱</th>
           <th>數量</th>
-          <th>卡路里(kcal)</th>
+          <th>卡路里</th>
           <th>備註</th>
           <th class="text-end">操作</th>
         </tr>
@@ -31,11 +29,11 @@
       <tbody>
         {% for r in records %}
         <tr>
-          <td>{{ r.created_at|date:"Y-m-d H:i:s" }}</td>
-          <td>{{ r.food_name }}</td>
+          <td class="text-muted">{{ r.food_date|date:"Y-m-d" }}</td>
+          <td class="fw-bold">{{ r.food_name }}</td>
           <td>{{ r.quantity }}</td>
-          <td><strong>{{ r.calories }}</strong></td>
-          <td>{{ r.notes|truncatewords:10 }}</td>
+          <td><span class="badge text-bg-success">{{ r.calories }} kcal</span></td>
+          <td class="text-muted">{{ r.notes|default:"-"|truncatewords:10 }}</td>
           <td class="text-end">
             <form method="post" action="{% url 'food_tracker:delete' r.id %}" onsubmit="return confirm('確定刪除此筆紀錄？');" style="display:inline;">
               {% csrf_token %}
@@ -65,6 +63,9 @@
   </div>
   </div>
 {% else %}
-  <div class="alert alert-info">目前沒有任何飲食紀錄，請先至「新增飲食」新增。</div>
+  <div class="soft-panel p-5 text-center">
+    <div class="h5 fw-bold mb-3">還沒有紀錄</div>
+    <a class="btn btn-success" href="{% url 'food_tracker:add' %}">新增第一筆</a>
+  </div>
 {% endif %}
 {% endblock %}

@@ -4,5 +4,6 @@ __pycache__/
 db.sqlite3
 db.sqlite3-journal
 staticfiles/
+.local_data/
 .env
 .DS_Store

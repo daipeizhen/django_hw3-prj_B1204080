@@ -10,6 +10,7 @@
 
 from pathlib import Path  # 處理檔案與目錄路徑的標準庫
 import os  # 若日後需要使用環境變數，可透過 os 模組
+import tempfile
 
 # 專案根目錄，例如 .../django_bmi-mgt
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -105,10 +106,17 @@ ASGI_APPLICATION = 'config.asgi.application'
 # 資料庫設定 (Database)
 # ------------------------------
 if os.environ.get('DB_ENGINE', 'mysql') == 'sqlite':
+    sqlite_dir = Path(
+        os.environ.get(
+            'SQLITE_DIR',
+            Path(tempfile.gettempdir()) / 'django_hw3-prj_B1204080',
+        )
+    )
+    sqlite_dir.mkdir(parents=True, exist_ok=True)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': os.environ.get('SQLITE_NAME', sqlite_dir / 'db.sqlite3'),
         }
     }
 else:

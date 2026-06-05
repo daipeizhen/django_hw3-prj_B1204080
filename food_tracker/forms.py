@@ -27,11 +27,11 @@ class FoodRecordForm(forms.ModelForm):
             }),
             'food_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': '請輸入食物名稱',
+                'placeholder': '雞肉便當',
             }),
             'calories': forms.NumberInput(attrs={
                 'class': 'form-control',
-                'placeholder': '請輸入卡路里數',
+                'placeholder': '650',
                 'min': '1',
                 'max': '10000',
             }),
@@ -41,7 +41,7 @@ class FoodRecordForm(forms.ModelForm):
             }),
             'notes': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': '備註（非必填）',
+                'placeholder': '',
                 'rows': 3,
             }),
         }

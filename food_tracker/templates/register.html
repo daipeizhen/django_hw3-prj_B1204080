@@ -3,9 +3,9 @@
 {% block content %}
 <div class="row justify-content-center">
   <div class="col-md-6">
-    <div class="card shadow">
+    <div class="soft-panel">
       <div class="card-body p-4">
-        <h2 class="card-title text-center mb-4">使用者註冊</h2>
+        <h2 class="card-title text-center mb-4 page-title">註冊</h2>
         
         {% if messages %}
           {% for message in messages %}
@@ -40,7 +40,7 @@
         </form>
 
         <div class="text-center mt-3">
-          <p>已有帳號？<a href="{% url 'food_tracker:login' %}">立即登入</a></p>
+          <p class="text-muted mb-0">已有帳號？<a href="{% url 'food_tracker:login' %}">登入</a></p>
         </div>
       </div>
     </div>

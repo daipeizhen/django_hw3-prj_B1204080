@@ -3,9 +3,9 @@
 {% block content %}
 <div class="row justify-content-center">
   <div class="col-md-5">
-    <div class="card shadow">
+    <div class="soft-panel">
       <div class="card-body p-4">
-        <h2 class="card-title text-center mb-4">使用者登入</h2>
+        <h2 class="card-title text-center mb-4 page-title">登入</h2>
         
         {% if messages %}
           {% for message in messages %}
@@ -29,11 +29,11 @@
             <input type="password" class="form-control" id="password" name="password" required placeholder="請輸入密碼">
           </div>
 
-          <button type="submit" class="btn btn-primary w-100">登入</button>
+          <button type="submit" class="btn btn-success w-100">登入</button>
         </form>
 
         <div class="text-center mt-3">
-          <p>還沒有帳號？<a href="{% url 'food_tracker:register' %}">立即註冊</a></p>
+          <p class="text-muted mb-0">還沒有帳號？<a href="{% url 'food_tracker:register' %}">註冊</a></p>
         </div>
       </div>
     </div>
