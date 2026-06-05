@@ -1,0 +1,53 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: food_tracker_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: food_tracker
+      MYSQL_USER: food_user
+      MYSQL_PASSWORD: food_password
+      MYSQL_ROOT_PASSWORD: root_password
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: food_tracker_app
+    restart: unless-stopped
+    environment:
+      DJANGO_SECRET_KEY: django-insecure-food-tracker-docker-secret-key
+      DJANGO_DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,app
+      MYSQL_HOST: db
+      MYSQL_PORT: "3306"
+      MYSQL_DATABASE: food_tracker
+      MYSQL_USER: food_user
+      MYSQL_PASSWORD: food_password
+    volumes:
+      - static_volume:/app/staticfiles
+    depends_on:
+      db:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: food_tracker_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - static_volume:/app/staticfiles:ro
+    depends_on:
+      - app
+
+volumes:
+  mysql_data:
+  static_volume:
