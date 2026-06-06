@@ -21,8 +21,14 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-food-tracker-d
 # 除錯模式：開發時設為 True，正式上線務必改為 False
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() == 'true'
 
-# 允許存取此站台的主機名稱或 IP，'*' 代表所有來源皆可（僅適合教學/開發）
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
+# 允許存取此站台的主機名稱或 IP
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1,app').split(',')
+
+# Docker Compose 透過 Nginx 以 8080 對外服務時，允許表單 POST 來源
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+]
 
 
 # ------------------------------
