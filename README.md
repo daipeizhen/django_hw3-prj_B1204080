@@ -2,13 +2,13 @@
 
 ## 專案簡介與功能
 
-本專案是一個使用 Django 5 與 Django REST Framework 建立的飲食記錄與卡路里管理應用。V3 版本已加入 Bootstrap 5 美化、RESTful API 操作頁、MySQL 設定，以及 Docker Compose 的 app + db + nginx 多容器部署。
+本專案是一個使用 Django 5 與 Django REST Framework 建立的飲食記錄與卡路里管理應用。V3 版本已加入 Bootstrap 5 美化、RESTful API、MySQL 設定，以及 Docker Compose 的 app + db + nginx 多容器部署。
 
 ## V3 作業重點
 
-- **Bootstrap 5 美化**：首頁、導覽列、登入/註冊、新增飲食、歷史查詢與 API 操作頁皆使用 Bootstrap 元件與統一版型。
+- **Bootstrap 5 美化**：首頁、導覽列、登入/註冊、新增飲食與歷史查詢皆使用 Bootstrap 元件與統一版型。
 - **RESTful API**：導入 DRF ViewSet，提供 `/api/records/` 飲食紀錄 CRUD 與 `/api/summary/` 統計摘要 JSON。
-- **API 操作網頁**：登入後可進入 `/api-tools/`，直接在網頁上測試 GET、POST、DELETE。
+- **RESTful API**：可使用 DRF Browsable API 或 Postman 測試 GET、POST、PUT/PATCH、DELETE。
 - **MySQL 資料庫**：Docker 環境使用 MySQL 官方映像 `mysql:8.4`。
 - **Docker Compose 部署**：`docker-compose.yml` 可一鍵啟動 `app`、`db`、`nginx` 三個服務。
 
@@ -23,7 +23,6 @@ docker compose up --build
 啟動完成後開啟：
 
 - **網站首頁**：http://localhost:8080/
-- **API 操作頁**：http://localhost:8080/api-tools/
 - **DRF Browsable API**：http://localhost:8080/api/records/
 - **摘要 API**：http://localhost:8080/api/summary/
 
@@ -256,7 +255,7 @@ python manage.py runserver
 - [food_tracker/templates/add_food.html](food_tracker/templates/add_food.html)
   - 提供飲食日期、食物名稱、數量、卡洛里、備註的輸入表單。
   - 預設日期為今日。
-  - API 操作頁使用 `fetch` 呼叫 DRF REST API，顯示成功或錯誤訊息。
+  - REST API 可使用 DRF Browsable API 或 Postman 測試。
   - 提交成功後自動清空表單。
 - [food_tracker/templates/history.html](food_tracker/templates/history.html)
   - 以表格顯示全部飲食紀錄（飲食日期、食物名稱、數量、卡洛里、備註），支援刪除功能。

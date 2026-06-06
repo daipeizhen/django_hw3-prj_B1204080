@@ -88,15 +88,14 @@ def user_logout(request):
 
 def home(request):
     """首頁：顯示簡單介紹或導引到新增與查詢頁面。"""
-    # 直接渲染 home.html 模板
-    return render(request, 'home.html')
-
-
-@ensure_csrf_cookie
-@login_required(login_url='food_tracker:login')
-def api_tools_page(request):
-    """API 操作網頁：讓使用者直接測試 GET/POST/DELETE。"""
-    return render(request, 'api_tools.html')
+    context = {}
+    if request.user.is_authenticated:
+        records_qs = FoodRecord.objects.filter(user=request.user)
+        context = {
+            'record_count': records_qs.count(),
+            'total_calories': records_qs.aggregate(Sum('calories'))['calories__sum'] or 0,
+        }
+    return render(request, 'home.html', context)
 
 
 @ensure_csrf_cookie # 確保瀏覽器有 CSRF Cookie，讓前端 JavaScript 可以安全地呼叫 API
@@ -127,6 +126,7 @@ def history_records(request):
     records_qs = FoodRecord.objects.filter(user=request.user)
     # 計算目前使用者全部紀錄的總卡路里數
     total_calories = records_qs.aggregate(Sum('calories'))['calories__sum'] or 0
+    record_count = records_qs.count()
     # 使用 Django 的 Paginator，每頁顯示 10 筆
     paginator = Paginator(records_qs, 10)
     # 從查詢字串取得目前頁碼，例如 ?page=2；若未提供則自動為第 1 頁
@@ -141,6 +141,7 @@ def history_records(request):
             'records': page_obj.object_list,
             'page_obj': page_obj,
             'total_calories': total_calories,
+            'record_count': record_count,
         },
     )
 

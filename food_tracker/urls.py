@@ -24,8 +24,6 @@ urlpatterns = [
     path('add/', views.add_food_page, name='add'),
     # 查詢飲食紀錄歷史（表格 + 分頁）
     path('history/', views.history_records, name='history'),
-    # API 操作頁
-    path('api-tools/', views.api_tools_page, name='api_tools'),
     # 刪除單筆紀錄，使用主鍵 pk
     path('records/<int:pk>/delete/', views.delete_record, name='delete'),
     # 提供前端 AJAX 呼叫的飲食新增 API（回傳 JSON）

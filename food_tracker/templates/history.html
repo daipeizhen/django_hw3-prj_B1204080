@@ -2,14 +2,23 @@
 {% block title %}飲食記錄查詢 - 飲食記錄應用{% endblock %}
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <h2 class="h4 page-title mb-0">飲食紀錄</h2>
-  <a class="btn btn-success" href="{% url 'food_tracker:add' %}">新增</a>
+  <div class="section-bar mb-0">
+    <span class="icon-badge"><i class="bi bi-list-check"></i></span>
+    <h2 class="h4 page-title mb-0">飲食紀錄</h2>
+  </div>
+  <a class="btn btn-success" href="{% url 'food_tracker:add' %}"><i class="bi bi-plus-circle me-1"></i>新增</a>
 </div>
 <div class="row mb-3">
   <div class="col-md-4">
     <div class="metric p-3">
       <div class="text-muted small">總卡路里</div>
       <div class="fs-3 fw-bold">{{ total_calories }} <span class="fs-6 text-muted">kcal</span></div>
+    </div>
+  </div>
+  <div class="col-md-4 mt-3 mt-md-0">
+    <div class="metric p-3">
+      <div class="text-muted small">紀錄筆數</div>
+      <div class="fs-3 fw-bold">{{ record_count }} <span class="fs-6 text-muted">筆</span></div>
     </div>
   </div>
 </div>
@@ -65,7 +74,7 @@
 {% else %}
   <div class="soft-panel p-5 text-center">
     <div class="h5 fw-bold mb-3">還沒有紀錄</div>
-    <a class="btn btn-success" href="{% url 'food_tracker:add' %}">新增第一筆</a>
+    <a class="btn btn-success" href="{% url 'food_tracker:add' %}"><i class="bi bi-plus-circle me-1"></i>新增第一筆</a>
   </div>
 {% endif %}
 {% endblock %}

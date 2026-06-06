@@ -1,40 +1,54 @@
 {% extends "base.html" %}
 {% block title %}首頁 - 飲食記錄應用{% endblock %}
 {% block content %}
-<div class="soft-panel p-4 p-lg-5">
+<div class="soft-panel hero-panel p-4 p-lg-5">
   {% if user.is_authenticated %}
     <div class="row g-4">
       <div class="col-lg-5">
         <div class="action-panel">
           <p class="text-success fw-bold mb-2">Hi, {{ user.username }}</p>
           <h1 class="display-6 page-title mb-3">今天吃了什麼？</h1>
-          <a href="{% url 'food_tracker:add' %}" class="btn btn-success btn-lg">記一餐</a>
+          <a href="{% url 'food_tracker:add' %}" class="btn btn-success btn-lg"><i class="bi bi-plus-circle me-1"></i>記一餐</a>
+          <div class="row g-2 mt-3">
+            <div class="col-6">
+              <div class="stat-card">
+                <div class="quiet-text small">紀錄</div>
+                <div class="h4 mb-0">{{ record_count }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="stat-card">
+                <div class="quiet-text small">熱量</div>
+                <div class="h4 mb-0">{{ total_calories }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-lg-7">
         <div class="row g-3 h-100 align-content-center">
           <div class="col-sm-6">
             <a class="quick-action h-100" href="{% url 'food_tracker:add' %}">
-              <strong>新增紀錄</strong>
-              <span class="quiet-text">日期、食物、份量、卡路里</span>
+              <span class="icon-badge"><i class="bi bi-pencil-square"></i></span>
+              <span><strong>新增紀錄</strong><span class="quiet-text">日期、食物、份量、卡路里</span></span>
             </a>
           </div>
           <div class="col-sm-6">
             <a class="quick-action h-100" href="{% url 'food_tracker:history' %}">
-              <strong>查看紀錄</strong>
-              <span class="quiet-text">列表、總熱量、刪除</span>
-            </a>
-          </div>
-          <div class="col-sm-6">
-            <a class="quick-action h-100" href="{% url 'food_tracker:api_tools' %}">
-              <strong>API 測試</strong>
-              <span class="quiet-text">新增、查詢、刪除</span>
+              <span class="icon-badge"><i class="bi bi-calendar2-week"></i></span>
+              <span><strong>查看紀錄</strong><span class="quiet-text">列表、總熱量、刪除</span></span>
             </a>
           </div>
           <div class="col-sm-6">
             <a class="quick-action h-100" href="{% url 'food_tracker:history' %}">
-              <strong>總覽</strong>
-              <span class="quiet-text">快速看攝取量</span>
+              <span class="icon-badge"><i class="bi bi-speedometer2"></i></span>
+              <span><strong>熱量總覽</strong><span class="quiet-text">看總攝取量</span></span>
+            </a>
+          </div>
+          <div class="col-sm-6">
+            <a class="quick-action h-100" href="{% url 'food_tracker:history' %}">
+              <span class="icon-badge"><i class="bi bi-graph-up-arrow"></i></span>
+              <span><strong>總覽</strong><span class="quiet-text">快速看攝取量</span></span>
             </a>
           </div>
         </div>
@@ -46,14 +60,19 @@
         <p class="text-success fw-bold mb-2">飲食小幫手</p>
         <h1 class="display-6 page-title mb-3">記錄飲食，簡單一點。</h1>
         <div class="d-flex flex-wrap gap-2">
-          <a href="{% url 'food_tracker:register' %}" class="btn btn-success btn-lg">開始使用</a>
-          <a href="{% url 'food_tracker:login' %}" class="btn btn-outline-success btn-lg">登入</a>
+          <a href="{% url 'food_tracker:register' %}" class="btn btn-success btn-lg"><i class="bi bi-person-plus me-1"></i>開始使用</a>
+          <a href="{% url 'food_tracker:login' %}" class="btn btn-outline-success btn-lg"><i class="bi bi-box-arrow-in-right me-1"></i>登入</a>
         </div>
       </div>
       <div class="col-lg-5">
         <div class="metric p-4">
-          <div class="fs-5 fw-bold mb-2">三步完成</div>
-          <div class="quiet-text">新增一餐 → 查看紀錄 → 管理熱量</div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="icon-badge"><i class="bi bi-check2-circle"></i></span>
+            <div>
+              <div class="fs-5 fw-bold mb-1">三步完成</div>
+              <div class="quiet-text">新增一餐 → 查看紀錄 → 管理熱量</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
